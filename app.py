@@ -77,14 +77,14 @@ if __name__ == '__main__':
     if mode == 2:
         hashtag = input('hashtag: ')
 
-    driver = int(input('Choose webdriver 1) Chrome 2) Firefox: '))
-    if driver == 1:
-        bot = webdriver.Chrome()
+    driver_type = int(input('Choose webdriver 1) Chrome 2) Firefox: '))
+    if driver_type == 1:
+        driver = webdriver.Chrome()
     else:
-        bot = webdriver.Firefox()
+        driver = webdriver.Firefox()
 
     if username and password:
-        bot = InstaBot(username, password)
+        bot = InstaBot(username, password, driver)
         bot.login()
         if mode == 2 and hashtag:
             bot.like_tag(hashtag)
