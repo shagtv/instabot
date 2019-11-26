@@ -11,8 +11,7 @@ class InstaBot:
         self.bot = webdriver.Firefox()
 
     def __del__(self):
-        # self.bot.close()
-        pass
+        self.bot.close()
 
     def login(self):
         bot = self.bot
