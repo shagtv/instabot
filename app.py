@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common import keys
 import time
 from getpass import getpass
+from random import randint
 
 
 class InstaBot:
@@ -38,7 +39,7 @@ class InstaBot:
         for _ in range(10):
             total_liked += self.like_all()
             bot.execute_script('window.scrollTo(0,document.body.scrollHeight)')
-            time.sleep(3)
+            time.sleep(randint(3, 5))
         print('{} [posts] were liked'.format(total_liked))
 
     def like_tag(self, tag):
@@ -46,11 +47,11 @@ class InstaBot:
         total_liked = 0
         tag_link = 'https://www.instagram.com/explore/tags/{}/'.format(tag)
         bot.get(tag_link)
-        time.sleep(3)
+        time.sleep(randint(3, 5))
 
         for _ in range(2):
             bot.execute_script('window.scrollTo(0,document.body.scrollHeight)')
-            time.sleep(3)
+            time.sleep(randint(3, 5))
 
         links = bot.find_elements_by_tag_name('a')
         links = [link.get_attribute('href') for link in links if '/p/' in link.get_attribute('href')]
@@ -59,7 +60,7 @@ class InstaBot:
 
         for link in links:
             bot.get(link)
-            time.sleep(2)
+            time.sleep(randint(3, 5))
             total_liked += self.like_all()
 
         print('{} [posts] were liked'.format(total_liked))
@@ -72,9 +73,9 @@ class InstaBot:
             try:
                 like.click()
                 total_liked += 1
-                time.sleep(10)
+                time.sleep(randint(10, 15))
             except:
-                time.sleep(60)
+                time.sleep(randint(50, 60))
         return total_liked
 
 
@@ -101,4 +102,3 @@ if __name__ == '__main__':
             bot.like_tag(hashtag)
         else:
             bot.like_followings()
-
