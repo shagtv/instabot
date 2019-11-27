@@ -44,7 +44,9 @@ class InstaBot:
     def like_tag(self, tag):
         bot = self.bot
         total_liked = 0
-        bot.get('https://www.instagram.com/explore/tags/{}/'.format(tag))
+        tag_link = 'https://www.instagram.com/explore/tags/{}/'.format(tag)
+        bot.get(tag_link)
+        time.sleep(3)
         links = bot.find_elements_by_tag_name('a')
         links = [link.get_attribute('href') for link in links if '/p/' in link.get_attribute('href')]
         for link in links:
