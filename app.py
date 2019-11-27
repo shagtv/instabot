@@ -47,12 +47,21 @@ class InstaBot:
         tag_link = 'https://www.instagram.com/explore/tags/{}/'.format(tag)
         bot.get(tag_link)
         time.sleep(3)
+
+        for _ in range(2):
+            bot.execute_script('window.scrollTo(0,document.body.scrollHeight)')
+            time.sleep(3)
+
         links = bot.find_elements_by_tag_name('a')
         links = [link.get_attribute('href') for link in links if '/p/' in link.get_attribute('href')]
+
+        print('{} links were found'.format(len(links)))
+
         for link in links:
             bot.get(link)
             time.sleep(2)
             total_liked += self.like_all()
+
         print('{} [posts] were liked'.format(total_liked))
 
     def like_all(self):
