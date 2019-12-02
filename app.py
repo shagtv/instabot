@@ -3,6 +3,7 @@ from getpass import getpass
 from random import randint
 
 from selenium import webdriver
+from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.common import keys
 
 
@@ -88,7 +89,11 @@ class InstaBot:
         total_liked = 0
         likes = self.bot.find_elements_by_class_name('glyphsSpriteHeart__outline__24__grey_9')
         for like in likes:
-            like.click()
+            try:
+                like.click()
+            except StaleElementReferenceException as err:
+                print('Error on like: {}'.format(err))
+
             total_liked += 1
             self.__wait(10, 15)
         return total_liked
